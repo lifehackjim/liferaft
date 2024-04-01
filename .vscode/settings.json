@@ -9,7 +9,7 @@
   //? Explorer › File Nesting: Patterns: Configure the file nesting patterns
   "explorer.fileNesting.patterns": {
     // this will nest all the project files under the pyproject.toml file
-    "pyproject.toml": "pyproject.toml, hatch.toml, ruff.toml, LICENSE.txt, README.md, .gitignore, ruff_defaults.toml, mkdocs.yml, mkdocs.*.yml, .gitattributes, .linkcheckerrc, pyoxidizer.bzl"
+    "pyproject.toml": "pyproject.toml, hatch.toml, ruff.toml, LICENSE.txt, README.md, .gitignore, ruff_defaults.toml, mkdocs.yml, mkdocs.*.yml, .gitattributes, .linkcheckerrc, pyoxidizer.bzl, cspell.*"
   },
   //? Files: Auto Save: Save the file after a delay
   "files.autoSave": "afterDelay",
@@ -160,6 +160,22 @@
   "python.testing.pytestEnabled": true,
   "python.testing.autoTestDiscoverOnSaveEnabled": true,
   "python.testing.cwd": "${workspaceFolder}",
+  "testing.coverageBarThresholds": {
+    "red": 0,
+    "yellow": 80,
+    "green": 95
+  },
+
+  //! Extension Code Spell Checker
+  // "cSpell.customDictionaries": {
+  //   "custom-dictionary-workspace": {
+  //     "name": "custom-dictionary-workspace",
+  //     "path": "${workspaceFolder:liferaft}/cspell_custom.txt",
+  //     "addWords": true,
+  //     "scope": "workspace"
+  //   }
+  // },
+  "cSpell.enabled": true,
 
   //! Extension: Rewrap
   //? Rewrap: Wrapping Column: Wrap at 100 characters
@@ -270,10 +286,5 @@
   "[toml]": {
     //? Default Formatter: Use the even-better-toml formatter as the default formatter
     "editor.defaultFormatter": "tamasfe.even-better-toml"
-  },
-  "testing.coverageBarThresholds": {
-    "red": 0,
-    "yellow": 80,
-    "green": 95
   }
 }

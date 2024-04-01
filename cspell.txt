@@ -1,0 +1,17 @@
+# Custom Dictionary Words
+classmethod
+codecov
+fastapi
+httpx
+icecream
+liferaft
+loguru
+mkdocs
+pydantic
+pylance
+pypi
+pyproject
+pytest
+structlog
+towncrier
+typer

@@ -3,8 +3,9 @@
 # PEPs: https://peps.python.org/
 
 [tool.rambling] #! Just a section with a lot of rambling notes
-version = "0.1.0" # str, Version tracker for the tooling itself
+version = "0.1.1" # str, Version tracker for the tooling itself
 changelog = """
+- 0.1.1: Switched from codespell to cspell for spell checking, requires cspell installed via `npm install -g cspell`
 - 0.1.0: Initial version
 """
 
@@ -107,7 +108,7 @@ watch = [
   "watchfiles >= 0.21.0", # https://github.com/samuelcolvin/watchfiles/tree/main - Watch files and run commands when they change # TODO: Unsure if we want this to be a core dependency or an optional dependency
 ]
 dev-debug = [
-  #? dependencies for debuggin
+  #? dependencies for debugging
   "rich >= 13.7.1",    # https://github.com/Textualize/rich - Rich text formatting for the terminal
   "pdbpp >= 0.10.3",   # https://github.com/pdbpp/pdbpp - Debugger with syntax highlighting and tab completion
   "icecream >= 2.1.3", # https://github.com/gruns/icecream - Debug with print() statements
@@ -119,7 +120,6 @@ dev-check = [
   "fawltydeps >= 0.15.0",   # https://github.com/tweag/FawltyDeps - Detect dependency issues (conf:pyproject.toml)
   "ruff >= 0.3.4",          # https://github.com/astral-sh/ruff - Code checking and formatting tool (conf:ruff.toml)
   "coverage[toml] >= 7.4",  # https://github.com/nedbat/coveragepy - Generate reports on test coverage (conf:pyproject.toml) (extra:toml for tomli package for python 3.10 and below)
-  "codespell >= 2.2.6",     # https://github.com/codespell-project/codespell - Spell checker for source code
 ]
 dev-test = [
   #? dependencies for testing
@@ -160,16 +160,6 @@ Issues = "https://github.com/lifehackjim/liferaft/issues"        # The URL where
 Source = "https://github.com/lifehackjim/liferaft"               # The URL where users can view the project's source code.
 Sponsor = "https://github.com/sponsors/lifehackjim"              # TODO: # The URL where users can sponsor the project or make financial contributions.
 Documentation = "https://github.com/lifehackjim/liferaft#readme" # TODO: # The URL of the project's documentation.
-
-[tool.codespell] #! Codespell Configuration https://github.com/codespell-project/codespell?tab=readme-ov-file#using-a-config-file
-builtin = "clear,rare,informal,usage,code,names" # str, "", clear|rare|informal|usage|code|names|en-GB_to_en-US, CSV of builtin dictionaries to use.
-ignore-words-list = "master,crate"               # str, "", CSV of words to ignore.
-skip = "artifacts,.cache,.venv"                  # str, "", CSV of files to skip.
-
-# exclude-file, str, null, Ignore whole lines that match those in the file. The lines in file should match the to-be-excluded lines exactly
-# ignore-regex, str, null, A regular expression to ignore when spell checking.
-# ignore-words, str, null, File containing words to ignore.
-# uri-ignore-words-list, str, "", CSV of words to ignore only in URI strings.
 
 [tool.coverage.run] #! Coverage run configuration https://github.com/nedbat/coveragepy/blob/master/doc/config.rst
 context = "${CONTEXT}"            # str, null, The static context to include in the coverage data.

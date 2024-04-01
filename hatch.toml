@@ -81,8 +81,9 @@ _check-types-pyright-external = [
     "_pyright --verifytypes {args:liferaft}",
 ]
 _check-spell = [
-    #? run codespell to check spelling everywhere
-    "codespell --count",
+    #? run cspell to check spelling everywhere
+    # requires cspell to be installed globally `npm install -g cspell`
+    "cspell",
 ]
 _check-types = [
     #? run all of the check-types scripts

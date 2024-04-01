@@ -61,7 +61,9 @@
     // Python: Python language support
     "ms-python.python",
     // Python Debugger: Debug Python code
-    "ms-python.debugpy"
+    "ms-python.debugpy",
+    // Code Spell Checker: Spelling checker for source code
+    "streetsidesoftware.code-spell-checker"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []

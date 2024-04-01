@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "ignorePaths": [],
+  "files": ["**/*.py", "**/*.md", "**/*.txt"],
+  "dictionaryDefinitions": [
+    {
+      "name": "custom",
+      "path": "cspell.txt"
+    }
+  ],
+  "dictionaries": [
+    "en_US",
+    "softwareTerms",
+    "misc",
+    "python",
+    "bash",
+    "custom"
+  ],
+  "words": [],
+  "ignoreWords": ["cspell.txt"],
+  "import": []
+}
