@@ -167,14 +167,6 @@
   },
 
   //! Extension Code Spell Checker
-  // "cSpell.customDictionaries": {
-  //   "custom-dictionary-workspace": {
-  //     "name": "custom-dictionary-workspace",
-  //     "path": "${workspaceFolder:liferaft}/cspell_custom.txt",
-  //     "addWords": true,
-  //     "scope": "workspace"
-  //   }
-  // },
   "cSpell.enabled": true,
 
   //! Extension: Rewrap
