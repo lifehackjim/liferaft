@@ -1,0 +1,256 @@
+#! Hatch configuration file https://hatch.pypa.io/
+
+[envs.default] #! default env - used if no other env is specified and is the base for all other envs
+description = """
+Tools for developing, checking, and testing code.
+
+✨ hatch run format    - Run code formatting tools
+🔍 hatch run check     - Run code checking tools
+🐞 hatch run test      - Run tests for developing
+🚀 hatch run test-full - Run tests matrices for production
+📊 hatch run cov       - Generate reports on test coverage
+""" # str, null, Displayed in the output of `hatch env show`
+
+# matrix-name-format = "{variable}_{value}" # str, {value}, variable|value, Template to use when creating environment names from matrix values
+# env_name = "" # str, "${env.name}", Name of the environment
+# env_type = "" # str, "virtual", Type of the environment
+# python = ""   # str, null, Python version to use for the environment
+# template = "" # str, default, Environment to inherit from
+
+# verbosity = 0 # int, 0, -2|-1|0|1|2, Verbosity level for the environment
+
+# detached = false     # bool, false, Set template=$env.name and skip-install=true
+# dev-mode = true      # bool, true, Install project in development mode to allow changes to the project to be reflected in the environment
+# skip-install = false # bool, false, Skip installing the project during environment creation
+
+features = [
+    #? list[str], [], Features of this package to install in this environment
+    "dev-debug",
+    "dev-check",
+    "dev-test",
+]
+# dependencies = [] # list[str], [], Dependencies for the environment
+# extra-dependencies = [] # list[str], [], Extra dependencies for the environment (added to the dependencies list from inherited environments)
+# platforms = [] # list[str], [linux,macos,windows], [linux|macos|windows], OS platforms supported by the environment
+# post-install-commands = [] # list[str], [], Commands to run after installing the environment
+# pre-install-commands = [] # list[str], [], Commands to run before installing the environment
+
+# env-vars = {}  # dict[str, str], {}, Environment variables to set for the environment
+# matrix = {}    # dict[str, list[str]], {}, Configure multiple environments for this environment
+# overrides = {} # dict[str, ?], {}, Override any configuration for this environment
+# scripts = {}   # dict[str, str|list[str]], {}, Scripts to run in the environment
+
+[envs.default.overrides] #! default env overrides
+env.GITHUB_ACTIONS.env-vars = "COVERAGE_REPORT="
+
+[envs.default.scripts] #! default env scripts (docs/hatch_scripts.md)
+_test = [
+    #? run pytest with coverage data created or appended to `artifacts/.coverage`, dynamic context set to test name, static context as hatch environment name
+    "CONTEXT='{env_name}' pytest --cov --cov-append --cov-context=test",
+]
+_pyright = [
+    #? run pyright and always get the latest version of pyright npm package
+    "PYRIGHT_PYTHON_FORCE_VERSION='latest' pyright",
+]
+_format-ruff = [
+    #? run ruff to format the code in src/ and tests/
+    "ruff check --fix {args:src tests}",
+]
+_check-ruff = [
+    #? run ruff to check the code in src/ and tests/
+    "ruff check {args:src tests}",
+]
+_check-types-mypy = [
+    #? run mypy to check types in src/ and tests/
+    "mypy --install-types --non-interactive {args:src tests}",
+]
+_check-deps = [
+    #? run fawltydeps to check dependencies
+    "fawltydeps {args}",
+]
+_check-types-pyright = [
+    #? run pyright to check types in src/ and tests/
+    "_pyright {args:src tests}",
+]
+_check-types-pyright-internal = [
+    #? run pyright to check types in src/ and tests/ and ignore external packages
+    "_pyright --ignoreexternal --verifytypes {args:liferaft}",
+]
+_check-types-pyright-external = [
+    #? run pyright to check types in src/ and tests/ and show errors for external packages. This will definitely show errors for most external packages. Not intended for CI.
+    "_pyright --verifytypes {args:liferaft}",
+]
+_check-spell = [
+    #? run codespell to check spelling everywhere
+    "codespell --count",
+]
+_check-types = [
+    #? run all of the check-types scripts
+    "_check-types-mypy",
+    "_check-types-pyright-internal",
+    "_check-types-pyright",
+]
+_cov-html = [
+    #? run coverage to generate an HTML report to artifacts/coverage_html
+    "coverage html",
+]
+_cov-html-open = [
+    #? open the coverage HTML report from artifacts/coverage_html in the browser
+    "open artifacts/coverage_html/index.html",
+]
+_cov-xml = [
+    #? run coverage to generate an XML report to artifacts/coverage.xml
+    "coverage xml",
+]
+_cov-text = [
+    #? run coverage to generate a text report to the terminal
+    "coverage report --format=markdown",
+]
+_check-cov = [
+    #? run coverage to fail if test coverage is below 100%
+    "coverage report --format=markdown --fail-under=100",
+]
+test = [
+    #? Run tests with coverage enabled, debugger on failure, last failed test first, extra verbosity
+    "_test --pdb --stepwise -r=a --verbosity=2 --showlocals --tb=native {args:tests src}",
+]
+test-qa = [
+    #? Runs `pytest` with coverage failure below 100%, parallel mode enabled
+    "_test --numprocesses=auto -r=a {args:tests src}",
+]
+test-full = [
+    #? Reset coverage data, run all matrix tests, generate coverage reports
+    "coverage erase",
+    "hatch run test-base:test-qa",
+    "hatch run test-features:test-qa",
+    "cov",
+]
+format = [
+    #? Run all of the format scripts
+    "_format-ruff",
+]
+check = [
+    #? Runs all of the check scripts
+    "_check-ruff",
+    "_check-types",
+    "_check-spell",
+    "_check-deps",
+    "_check-cov",
+]
+cov = [
+    #? Generate coverage reports
+    "_cov-text",
+    "_cov-xml",
+    "_cov-html",
+    "_cov-html-open",
+]
+
+[envs.test-base] #! test-base env: Run test matrix on all python versions
+# This exists because I could not figure out how to do something like features = ["", "watch"] in a matrix.
+description = "Tests all python versions and NO optional features."
+features = ["dev-test", "dev-debug"]
+scripts.test-full = "echo 'run hatch run test-full to run all tests'"
+
+[[envs.test-base.matrix]] #! test env matrix
+python = ["3.10", "3.11", "3.12"]
+
+[envs.test-features] #! test-features env: Run tests with optional features on all python versions
+description = "Tests all python versions and ALL optional features."
+template = "test-base"
+
+[[envs.test-features.matrix]] #! test-features env matrix
+python = ["3.10", "3.11", "3.12"]
+features = ["watch"]
+
+[envs.docs] #! docs env: Build and preview documentation
+description = """
+Build and preview documentation.
+
+📚 hatch run docs:build  - Build documentation.
+📖 hatch run docs:serve  - Serve documentation.
+🚀 hatch run docs:deploy - Deploy documentation.
+"""
+template = "docs"
+features = ["dev-docs"]
+
+[envs.docs.scripts] #! docs env scripts
+deploy = [
+    #? deploy the documentation
+    "mkdocs gh-deploy",
+]
+build = [
+    #? Build the documentation
+    "mkdocs build --config-file {env:MKDOCS_CONFIG} --clean --strict {args}",
+]
+serve = [
+    #? Serve the documentation on localhost:8000
+    "mkdocs serve --config-file {env:MKDOCS_CONFIG} --dev-addr localhost:8000 {args}",
+]
+check-links = [
+    #? Check all links in the documentation
+    "linkchecker --config .linkcheckerrc site",
+]
+# ci-build = "mike deploy --config-file {env:MKDOCS_CONFIG} --update-aliases {args}"
+# https://github.com/linkchecker/linkchecker/issues/678
+# build-check = ["build --no-directory-urls", "validate"]
+
+[build.targets.sdist] #! Build configuration for source distribution
+directory = "artifacts/built/sdist"
+include = ["src/liferaft", "ruff.toml"]
+
+# core-metadata-version = "2.1" # str, "2.1", The version of core metadata to use
+# strict-naming = true   # bool, true, Whether or not file names should contain the normalized version of the project name
+# support-legacy = false # bool, false, Whether or not to include a setup.py file to support legacy installation mechanisms
+
+[build.targets.sdist.sources] #! Build configuration for source distribution
+src = "" # Map "src" to root of archive
+
+[build.targets.wheel] #! Build configuration for wheel distribution
+directory = "artifacts/built/wheel"
+include = ["src/liferaft"]
+
+# core-metadata-version = "2.1" # str, "2.1", The version of core metadata to use
+# strict-naming = true     # bool, true, Whether or not file names should contain the normalized version of the project name
+# macos-max-compat = true  # bool, true, Whether or not on macOS, when build hooks have set the infer_tag build data, the wheel name should signal broad support rather than specific versions for newer SDK versions.
+# bypass-selection = false # bool, false, Whether or not to suppress the error when one has not defined any file selection options and all heuristics have failed to determine what to ship
+# shared-data = {}    # dict[str, str], {}, A mapping similar to the forced inclusion option corresponding to data that will be installed globally in a given Python environment, usually under sys.prefix
+# extra-metadata = {} # dict[str, str], {}, A mapping similar to the forced inclusion option corresponding to extra metadata that will be shipped in a directory named extra_metadata
+
+[build.targets.wheel.sources] #! Build configuration for wheel distribution
+src = "" # Map "src" to root of archive
+
+[version] #! control the dynamic version
+path = "src/liferaft/__about__.py"
+
+# [build] #! Build configuration for all targets
+# directory = "" # str, null, Directory to place the distribution
+
+# dev-mode-exact = false               # bool, false, Unclear... Enable a more targeted mechanism than dev-mode-dirs?
+# ignore-vcs = false                   # bool, false, Ignore gitignore / .hgignore when building the distribution
+# only-packages = false                # bool, false, Exclude non-artifact files that do not reside within a Python package
+# reproducible = true                  # bool, true, When enabled, the SOURCE_DATE_EPOCH environment variable will be used for all build timestamps. If not set, then Hatch will use an unchanging default value.
+# require-runetime-depenencies = false # bool, false, Require runtime dependencies to be installed before building the distribution
+# skip-excluded-dirs = false           # bool, false, Do not traverse directories that are excluded by the `exclude` option
+
+# artifacts = [] #  list[str], [], Files to include in the distribution even if they are excluded. Can negate a match by prefixing with `!`
+# dependencies = [] #  list[str], [], Dependencies to install for third party builders
+# dev-mode-dirs = [] #  list[str], [], Unclear... Directories to include in the distribution in development mode
+# exclude = [] #  list[str], [], Files to exclude from the distribution
+# include = [] #  list[str], [], Files to include in the distribution
+# only-include = [] #  list[str], [], Files to include in the distribution and exclude all others
+# packages = [] #  list[str], [], Packages to include in the distribution
+# require-runtime-features = [] #  list[str], [], Require package features to be installed before building the distribution
+# versions = [] #  list[str], [], Unclear... Specify which versions of the package are applicable to this build
+
+# force-include = {}             # dict[str, str], {}, Mapping of paths anywhere on filesystem to include as paths in the distribution
+# hooks = {}                     # dict[str, ?], {}, Mapping of hooks to run before or after building the distribution
+# hooks.enable-by-default = true # bool, true, Disable a hook by default, allowing it to be enabled by environment variables
+# sources = {}                   # dict[str, str]|list[str], {}, Mapping of relative paths in project to rewrite as paths in the distribution
+
+# environment variables:
+# HATCH_BUILD_HOOK_ENABLE_<HOOK_NAME> = false # bool, false, Whether or not to enable the build hook named <HOOK_NAME>HATCH_BUILD_CLEAN = false             # bool, false, Whether or not existing artifacts should first be removed
+# HATCH_BUILD_CLEAN_HOOKS_AFTER = false # bool, false, Whether or not build hook artifacts should be removed after each build
+# HATCH_BUILD_HOOKS_ONLY = false        # bool, false, Whether or not to only execute build hooks
+# HATCH_BUILD_NO_HOOKS = false          # bool, false, Whether or not to disable all build hooks; this takes precedence over other options
+# HATCH_BUILD_HOOKS_ENABLE = false      # bool, false, Whether or not to enable all build hooks
+# HATCH_BUILD_LOCATION = "dist"         # str, dist, The location with which to build the targets; only used by the build command

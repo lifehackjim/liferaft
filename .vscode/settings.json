@@ -1,0 +1,279 @@
+{
+  //! Explorer
+  //? Explorer: Sort Order: Sort the explorer items by folders, then files
+  "explorer.sortOrder": "foldersNestsFiles",
+  //? Explorer › File Nesting: Enabled: Allows for related files to be visually grouped
+  "explorer.fileNesting.enabled": true,
+  //? Explorer › File Nesting: Expand: Do not expand the file nesting by default
+  "explorer.fileNesting.expand": false,
+  //? Explorer › File Nesting: Patterns: Configure the file nesting patterns
+  "explorer.fileNesting.patterns": {
+    // this will nest all the project files under the pyproject.toml file
+    "pyproject.toml": "pyproject.toml, hatch.toml, ruff.toml, LICENSE.txt, README.md, .gitignore, ruff_defaults.toml, mkdocs.yml, mkdocs.*.yml, .gitattributes, .linkcheckerrc, pyoxidizer.bzl"
+  },
+  //? Files: Auto Save: Save the file after a delay
+  "files.autoSave": "afterDelay",
+  //? Files: Exclude: Configure glob patterns for excluding files and folders
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache/": true,
+    "**/.cache/": true
+  },
+  //? File associations
+  "files.associations": {
+    ".env": "dotenv"
+  },
+
+  //! Formatting
+  //? Editor: Minimap: Disable the minimap
+  "editor.minimap.enabled": false,
+  //? Editor: Format On Paste: Format the pasted content
+  "editor.formatOnPaste": true,
+  //? Editor: Format On Save: Format the file on save
+  "editor.formatOnSave": true,
+  //? Editor: Linked Editing: Update related symbols when editing a symbol
+  "editor.linkedEditing": true,
+  //? Editor: Word Wrap: Wrap at the preferred line length
+  "editor.wordWrap": "bounded",
+  //? Files: Eol: Use LF as the default end of line character
+  "files.eol": "\n",
+  //? Files: Insert Final Newline: Insert a newline character at the end of the file
+  "files.insertFinalNewline": true,
+  //? Files: Refactoring: Auto Save: Save the file after refactoring
+  "files.refactoring.autoSave": true,
+  //? Files: Trim Final Newlines: Trim all newlines after the final newline at the end of the file
+  "files.trimFinalNewlines": true,
+  //? Files: Trim Trailing Whitespace: Trim all trailing whitespace at the end of the line
+  "files.trimTrailingWhitespace": true,
+  //? Notebook: Insert Final Newline: Do not insert a newline character at the end of the notebook
+  "notebook.insertFinalNewline": false,
+  //? Notebook: Format On Cell Execution: Format the notebook on cell execution
+  "notebook.formatOnCellExecution": true,
+  //? Notebook: Format On Save: Format the notebook on save
+  "notebook.formatOnSave.enabled": true,
+
+  //! Line-width
+  //? Git: Input Validation Subject Length: Show warning when the subject length exceeds 100 characters
+  "git.inputValidationSubjectLength": 100,
+  //? Git: Input Validation Length: Show warning when the body length exceeds 1e+100 characters
+  "git.inputValidationLength": 1e100,
+  //? Editor: Word Wrap Column: When Word Wrap is `wordWrapColumn` or `bounded`, wrap at 100 characters
+  "editor.wordWrapColumn": 100,
+  //? Editor: Rulers: Show a ruler at 100 characters
+  "editor.rulers": [100],
+  //? SCM: Input Max Line Count: Maximum number of lines that input will auto-grow to
+  "scm.inputMaxLineCount": 50,
+  //? SCM: Input Min Line Count: Minimum number of lines that input will auto-grow to
+  "scm.inputMinLineCount": 3,
+
+  //! Workbench
+  //? Workbench: Icon Theme: Use the vscode-icons icon theme
+  "workbench.iconTheme": "vscode-icons",
+  //? Workbench: Side Bar Location: Show the side bar on the right
+  "workbench.sideBar.location": "right",
+  //? Workbench: Color Customizations: Change the title bar background color
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#19275d",
+    "titleBar.inactiveBackground": "#533fd5"
+  },
+  //! Code Actions
+  //? Editor: Code Actions On Save: Control actions on save for editor
+  "editor.codeActionsOnSave": {
+    //? Source: Fix All: Run all fix actions on save
+    "source.fixAll": "always",
+    //? Source: Organize Imports: Run organize imports action on save
+    "source.organizeImports": "always"
+  },
+  //? Notebook: Code Actions On Save: Control actions on save for notebooks
+  "notebook.codeActionsOnSave": {
+    "notebook.source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+
+  //! Extension: Git
+  //? Git: Allow No Verify Commit: Allow to commit without running pre-commit and commit-msg hooks
+  "git.allowNoVerifyCommit": true,
+  //? Git: Confirm No Verify Commit: Do not confirm before commiting without verification
+  "git.confirmNoVerifyCommit": false,
+  //? Git: Commands To Log: Include stdout of commands and their hooks in the output
+  "git.commandsToLog": ["commit", "push"],
+
+  //! Extension: Github Copilot
+  //? GitHub Copilot: Enable: enable copilot in plaintext, markdown, and scminput
+  "github.copilot.enable": {
+    "plaintext": "true",
+    "markdown": "true",
+    "scminput": "true"
+  },
+
+  //! Extension: GitHub Actions
+  //? GitHub Actions: Workflows: Pinned: Workflows to show in the status bar, identified by their paths
+  "github-actions.workflows.pinned.workflows": [".github/workflows/ci.yml"],
+
+  //! Extension: MyST
+  //? MyST: Preview: Extensions: Enable the colon fence and dollar math extensions in the preview
+  "myst.preview.extensions": ["colon_fence", "dollarmath"],
+
+  //! Extension: Mypy
+  //? Mypy: Enabled: Enable the mypy type checker
+  "mypy.enabled": true,
+  //? Mypy: Run Using Active Interpreter: Run mypy using the active interpreter
+  //! You will need to `hatch env create` and then tell vscode to use .venv/liferaft as the active interpreter
+  "mypy.runUsingActiveInterpreter": true,
+  //? Mypy: Executable: Use the dmypy executable from the user's home directory
+  // Assumes mypy is installed via: pipx install mypy
+  //// "mypy.dmypyExecutable": "~/.local/bin/dmypy",
+
+  //! Extension: Pylance
+  //? Python: Venv Folders: Use the .venv folder if it exists in the workspace as the venv folder
+  //! Can only be set in user settings!
+  //// "python.venvFolders": ["${workspaceFolder}/.venv"],
+
+  //? Python: Language Server: Use Pylance as the language server
+  "python.languageServer": "Pylance",
+  //? Python: Analysis: Type Checking Mode: Use strict type checking
+  "python.analysis.typeCheckingMode": "strict",
+  //? Python: Analysis: Auto Format Strings: When typing a '{' in a string, automatically prefix the string with 'f'
+  "python.analysis.autoFormatStrings": true,
+  //? Python: Analysis: Auto Import Completions: Enable import completions when typing
+  "python.analysis.autoImportCompletions": true,
+  //? Python: Analysis: Complete Function Parentheses: Add parentheses when completing a function
+  "python.analysis.completeFunctionParens": true,
+  //? Python › Analysis: Goto Definition In String Literal: Go to the definition of a symbol in a string literal
+  "python.analysis.gotoDefinitionInStringLiteral": true,
+  //? Python: Analysis: Import Format: Use absolute imports
+  "python.analysis.importFormat": "absolute",
+  //? Editor > Inlay Hints: Enabled: Show inlay hints
+  "editor.inlayHints.enabled": "offUnlessPressed",
+  //? Python: Analysis: Inlay Hints: Call Argument Names: Show all call argument names
+  "python.analysis.inlayHints.callArgumentNames": "all",
+  //? Python: Analysis: Inlay Hints: Function Return Types: Use inline hints for function return types
+  "python.analysis.inlayHints.functionReturnTypes": false,
+  //? Python › Analysis › Inlay Hints: Pytest Parameters: Use inline hints for pytest parameters
+  "python.analysis.inlayHints.pytestParameters": false,
+  //? Python › Analysis › Inlay Hints: Variable Types: Use inline hints for variable type hints
+  "python.analysis.inlayHints.variableTypes": false,
+
+  //! Python Testing
+  "python.testing.pytestArgs": ["tests"],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "python.testing.autoTestDiscoverOnSaveEnabled": true,
+  "python.testing.cwd": "${workspaceFolder}",
+
+  //! Extension: Rewrap
+  //? Rewrap: Wrapping Column: Wrap at 100 characters
+  "rewrap.wrappingColumn": 100,
+  //? Rewrap: Whole Comment: Do not rewrap the whole comment, just the current paragraph
+  "rewrap.wholeComment": false,
+
+  //! Extension: Sourcery
+  //? Sourcery: Code Lens: Do not show code lenses for Sourcery above functions/classes
+  // "sourcery.codeLens": false,
+  //? Sourcery: Rule Type: Comments: Do not show comments for Sourcery rules
+  // "sourcery.ruleType.comments": false,
+  //? Sourcery: Rule Type: Refactorings: Do not show refactorings for Sourcery rules
+  // "sourcery.ruleType.refactorings": false,
+  //? Sourcery: Rule Type: Suggestions: Do not show suggestions for Sourcery rules
+  // "sourcery.ruleType.suggestions": false,
+
+  //! Extension: vscode-icons
+  //? Vsicons › Presets: Hide Explorer Arrows: Hide the folder arrows in the explorer
+  "vsicons.presets.hideExplorerArrows": false,
+  //? Vsicons: Dont Show New Version Message: Show the new version message
+  "vsicons.dontShowNewVersionMessage": false,
+
+  //! Extension: ruff
+  //? Ruff: Import Strategy: use ruff from the environment, falling back to the bundled version if not found
+  //! You will need to `hatch env create` and then tell vscode to use .venv/liferaft as the active interpreter
+  "ruff.importStrategy": "fromEnvironment",
+  //? Ruff: Lint Run: Run the linter on save
+  "ruff.lint.run": "onSave",
+  //? Ruff: Show Notifications: Always show notifications
+  "ruff.showNotifications": "always",
+  //? Ruff: Lint Args: Use the ruff.toml configuration file for linting
+  "ruff.lint.args": ["--config", "ruff.toml"],
+  //? Ruff: Format Args: Use the ruff.toml configuration file for formatting
+  "ruff.format.args": ["--config", "ruff.toml"],
+  //? Ruff: Path: Use the ruff executable from the user's home directory
+  // Assumes ruff is installed via: pipx install ruff
+  //// "ruff.path": ["~/.local/bin/ruff"],
+
+  //! Extension: evenBetterToml
+  //? Even Better Toml: Formatter: Column Width: Set the column width to 100
+  "evenBetterToml.formatter.columnWidth": 100,
+  //? Even Better Toml: Formatter: Allowed Blank Lines: Allow up to 5 blank lines
+  "evenBetterToml.formatter.allowedBlankLines": 5,
+  //? Even Better Toml: Formatter: Array Auto Expand: Automatically expand arrays
+  "evenBetterToml.formatter.arrayAutoExpand": true,
+  //? Even Better Toml: Formatter: Array Trailing Comma: Add a trailing comma to arrays
+  "evenBetterToml.formatter.arrayTrailingComma": true,
+  //? Even Better Toml: Schema: Enabled: Enable the schema validation
+  "evenBetterToml.schema.enabled": true,
+  //? Even Better Toml: Semantic Tokens: Enabled: Enable the semantic tokens
+  "evenBetterToml.semanticTokens": true,
+  //? Even Better Toml: Schema: Links
+  "evenBetterToml.schema.links": true,
+  //? Even Better Toml: Formatter: Align Comments
+  "evenBetterToml.formatter.alignComments": true,
+  //? Even Better Toml: Formatter: Align Entries
+  "evenBetterToml.formatter.alignEntries": true,
+  //? Even Better Toml: Schema Associations: Associate the hatch schema with hatch.toml and .hatch.toml files
+  "evenBetterToml.schema.associations": {
+    // this schema is not accurate...
+    //   "^(.*(/|\\\\)hatch\\.toml|hatch\\.toml)$": "https://json.schemastore.org/hatch.json"
+    "^(.*(/|\\\\)hatch\\.toml|hatch\\.toml)$": null
+  },
+
+  //! override settings for type: scminput
+  "[scminput]": {
+    //? Editor: Rules: Show a ruler at 100 characters
+    "editor.rulers": [100]
+  },
+  //! override settings for type: markdown
+  "[markdown]": {
+    //? Default Formatter: Use the markdownlint formatter as the default formatter
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+  //! override settings for type: json
+  "[json]": {
+    //? Default Formatter: Use the Prettier formatter as the default formatter
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  //! override settings for type: jsonc (json with comments)
+  "[jsonc]": {
+    //? Default Formatter: Use the Prettier formatter as the default formatter
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  //! override settings for type: yaml
+  "[yaml]": {
+    //? Default Formatter: Use the Prettier formatter as the default formatter
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    //? Word Wrap: Do not wrap the lines
+    "editor.wordWrap": "off"
+  },
+  //! override settings for type: github-actions-workflow
+  "[github-actions-workflow]": {
+    //? Default Formatter: Use the Prettier formatter as the default formatter
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    //? Word Wrap: Do not wrap the lines
+    "editor.wordWrap": "off"
+  },
+  //! override settings for type: python
+  "[python]": {
+    //? Default Formatter: Use the ruff formatter as the default formatter
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    //? Word Wrap: Do not wrap the lines
+    "editor.wordWrap": "off"
+  },
+  //! override settings for type: toml
+  "[toml]": {
+    //? Default Formatter: Use the even-better-toml formatter as the default formatter
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
+  "testing.coverageBarThresholds": {
+    "red": 0,
+    "yellow": 80,
+    "green": 95
+  }
+}

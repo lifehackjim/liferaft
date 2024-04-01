@@ -1,0 +1,68 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=827846 to learn about workspace recommendations.
+  // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
+
+  // List of extensions which should be recommended for users of this workspace.
+  "recommendations": [
+    // Better Comments: Improve your code commenting by color coding based on comment prefix
+    "aaron-bond.better-comments",
+    // Markdown Preview GitHub Styles: Changes the style of the markdown preview to match GitHub's style
+    "bierner.markdown-preview-github-styles",
+    // Ruff: ultrafast code checker for Python
+    "charliermarsh.ruff",
+    // Markdown Lint
+    "davidanson.vscode-markdownlint",
+    // Git History: View git log, file history, compare branches or commits
+    "donjayamanne.githistory",
+    // GitLens: Visualize code authorship at a glance
+    "eamodio.gitlens",
+    // Prettier - Code formatter
+    "esbenp.prettier-vscode",
+    // Support for Markedly Structured Text (MyST)
+    "executablebookproject.myst-highlight",
+    // GitHub Codespaces: Instant dev environments
+    "github.codespaces",
+    // GitHub Actions: workflows and runs for GitHub
+    "github.vscode-github-actions",
+    // GitHub Pull Requests: Pull request and issue provider for GitHub
+    "github.vscode-pull-request-github",
+    // Sourcery: Refactor Python code
+    "sourcery.sourcery",
+    // Rewrap: Wrap comments and other text to a given line length
+    "stkb.rewrap",
+    // Even Better TOML: fully featured TOML language support
+    "tamasfe.even-better-toml",
+    // Error Lens: Improve highlighting of errors, warnings and other language diagnostics
+    "usernamehw.errorlens",
+    // Markdown keyboard shortcuts, table of contents generator/updater, auto preview and more
+    "yzhang.markdown-all-in-one",
+    // Font Size Shortcuts: Change the font size for just the editor using cmd+- and cmd+= (NOT number keypad + and -)
+    "fosshaas.fontsize-shortcuts",
+    // GitHub Copilot
+    "github.copilot",
+    // GitHub Copilot Chat
+    "github.copilot-chat",
+    // GitHub Repositories: Remotely browse and edit any GitHub repository
+    "github.remotehub",
+    // JSON Pretty Printer
+    "euskadi31.json-pretty-printer",
+    // Mypy: Static type checker for Python
+    "matangover.mypy",
+    // Pylance: Language server for Python
+    "ms-python.vscode-pylance",
+    // Pylens: Shows the latest version of a dependency when editing a pyproject.toml or requirements.txt
+    "ninoseki.vscode-pylens",
+    // Python: Python language support
+    "donjayamanne.python-environment-manager",
+    // Remote Repositories: Remotely browse and edit git repositories
+    "ms-vscode.remote-repositories",
+    // VSCode Icons: Icons for Visual Studio Code
+    "vscode-icons-team.vscode-icons",
+    // Python: Python language support
+    "ms-python.python",
+    // Python Debugger: Debug Python code
+    "ms-python.debugpy"
+  ],
+  // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
+  "unwantedRecommendations": []
+}
